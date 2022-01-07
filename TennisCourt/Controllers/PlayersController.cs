@@ -71,7 +71,7 @@ namespace TennisCourt.Controllers
     public ActionResult AddCourt(int id)
     {
       var thisPlayer = _db.Players.FirstOrDefault(player => player.PlayerId == id);
-      ViewBag.CId = new SelectList(_db.Courts, "CourtId", "Name");
+      ViewBag.CourtId = new SelectList(_db.Courts, "CourtId", "Name");
       return View(thisPlayer);
     }
 
@@ -88,14 +88,14 @@ namespace TennisCourt.Controllers
 
     public ActionResult Delete(int id)
     {
-      var thisPlayer = _db.Players.FirstOrDefault(item => item.ItemId == id);
+      var thisPlayer = _db.Players.FirstOrDefault(player => player.PlayerId == id);
       return View(thisPlayer);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      var thisplayer = _db.Players.FirstOrDefault(player => player.PlayerId == id);
+      var thisPlayer = _db.Players.FirstOrDefault(player => player.PlayerId == id);
       _db.Players.Remove(thisPlayer);
       _db.SaveChanges();
       return RedirectToAction("Index");

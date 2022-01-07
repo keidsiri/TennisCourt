@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using TennisCourt.Models;
@@ -38,7 +39,7 @@ namespace TennisCourt.Controllers
     {
       var thisCourt = _db.Courts
         .Include(court => court.JoinEntities)
-        .ThenInclude(join => join.Item)
+        .ThenInclude(join => join.Player)
         .FirstOrDefault(court => court.CourtId == id);
       return View(thisCourt);
     }
@@ -69,6 +70,33 @@ namespace TennisCourt.Controllers
       var thisCourt = _db.Courts.FirstOrDefault(court => court.CourtId == id);
       _db.Courts.Remove(thisCourt);
       _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult Addplayer(int id)
+      {
+          var thisCourt= _db.Courts.FirstOrDefault(court => court.CourtId == id);
+          ViewBag.PlayerId = new SelectList(_db.Players, "PlayerId", "Name");
+          return View(thisCourt);
+      }
+
+      [HttpPost]
+      public ActionResult AddPlayer(Court court, int PlayerId)
+      {
+          if (PlayerId != 0)
+          {
+          _db.CourtPlayer.Add(new CourtPlayer() { PlayerId = PlayerId, CourtId = court.CourtId });
+          }
+          _db.SaveChanges();
+          return RedirectToAction("Index");
+      }
+
+      [HttpPost]
+      public ActionResult DeletePlayer(int joinId)
+      {
+        var joinEntry = _db.CourtPlayer.FirstOrDefault(entry => entry.CourtPlayerId == joinId);
+        _db.CourtPlayer.Remove(joinEntry);
+        _db.SaveChanges();
       return RedirectToAction("Index");
     }
   }

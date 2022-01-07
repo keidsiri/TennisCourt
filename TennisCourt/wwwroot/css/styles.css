@@ -24,7 +24,7 @@ div#footer {
 	margin-bottom: 60px;
 }
 
-#courses-img {
+#courts-img {
 	background-image: url(../css/Img/courses.jpeg);
 	background-repeat: no-repeat;
   background-size: cover;
@@ -37,7 +37,7 @@ div#footer {
 	margin: auto;
 }
 
-#students-img {
+#players-img {
 	background-image: url(../css/Img/students.jpeg);
 	background-repeat: no-repeat;
   background-size: cover;

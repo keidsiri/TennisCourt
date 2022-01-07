@@ -1,0 +1,27 @@
+@{
+  Layout = "_Layout";
+}
+
+@model TennisCourt.Models.Court
+
+<h4>Add a new player</h4>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+
+  @Html.LabelFor(model => model.Location)
+  @Html.TextBoxFor(model => model.Location)
+
+  @Html.LabelFor(model => model.SurfaceType)
+  @Html.TextBoxFor(model => model.SurfaceType)
+
+  @Html.LabelFor(model => model.Private)
+  @Html.CheckBoxFor(model => model.Private)
+
+  @Html.LabelFor(model => model.Private)
+  @Html.CheckBoxFor(model => model.Private)
+
+  <input type="submit" value="Add new court" />
+}
+<p>@Html.ActionLink("Show all courts", "Index")</p>
