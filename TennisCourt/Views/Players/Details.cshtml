@@ -1,0 +1,37 @@
+@{
+  Layout = "_Layout";
+}
+
+@model TennisCourt.Models.Player
+
+<h2>Player Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+<h3>@Html.DisplayNameFor(model => model.Age): @Html.DisplayFor(model => model.Age)</h3>
+<h3>@Html.DisplayNameFor(model => model.Gender): @Html.DisplayFor(model => model.Gender)</h3>
+<h3>@Html.DisplayNameFor(model => model.Location): @Html.DisplayFor(model => model.Location)</h3>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This player has visited no courts</p>
+}
+else
+{
+  <h4>Courts this player has visited:</h4>
+  <ul>
+  @foreach(var join in Model.JoinEntities)
+  {
+    <li>@join.Course.Name</li>
+    @using (Html.BeginForm("DeleteCourt", "Players"))
+    {
+      @Html.Hidden("joinId", @join.CoursePlayerId)
+      <input type="submit" value="Delete"/>
+    }
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Add a Court", "AddCourt", new { id = Model.PlayerId })</p>
+<p>@Html.ActionLink("Back to player list", "Index")</p>
+<p>@Html.ActionLink("Edit player", "Edit", new { id = Model.PlayerId })</p>
+<p>@Html.ActionLink("Delete player", "Delete", new { id = Model.PlayerId })</p>

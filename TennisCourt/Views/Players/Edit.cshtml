@@ -1,0 +1,33 @@
+@{
+  Layout = "_Layout";
+}
+
+@model TennisCourt.Models.Player
+
+<h2>Edit</h2>
+
+<h4>Edit this player: @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.PlayerId)
+
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+
+  @Html.LabelFor(model => model.Age)
+  @Html.TextBoxFor(model => model.Age)
+
+  @Html.LabelFor(model => model.Gender)
+  @Html.TextBoxFor(model => model.Gender)
+  
+  @Html.LabelFor(model => model.Location)
+  @Html.TextBoxFor(model => model.Location)
+
+  @Html.Label("Select court")
+  @Html.DropDownList("CourtId")
+
+  <input type="submit" value="Save" class="btn btn-dark" />
+}
+
+<p>@Html.ActionLink("Back to player list", "Index")</p>
