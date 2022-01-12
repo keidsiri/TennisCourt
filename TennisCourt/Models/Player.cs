@@ -17,6 +17,8 @@ namespace TennisCourt.Models
     public int Age { get; set; }
     public string Gender { get; set; }
     public string Location { get; set; }
+
+    public virtual ApplicationUser User { get; set; }
     public virtual ICollection<CourtPlayer> JoinEntities { get; }
   }
 }

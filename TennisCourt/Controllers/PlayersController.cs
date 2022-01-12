@@ -4,20 +4,29 @@ using Microsoft.AspNetCore.Mvc;
 using TennisCourt.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace TennisCourt.Controllers
-{
+{ 
+  [Authorize]
   public class PlayersController : Controller
   {
     private readonly TennisCourtContext _db;
-
-    public PlayersController(TennisCourtContext db)
+    private readonly UserManager<ApplicationUser> _userManager;
+    public PlayersController(UserManager<ApplicationUser> userManager, TennisCourtContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userPlayers = _db.Players.Where(entry => entry.User.Id == currentUser.Id).ToList();
       return View(_db.Players.ToList());
     }
 
@@ -28,8 +37,10 @@ namespace TennisCourt.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Player player, int CourtId)
-    {
+    public async Task<ActionResult> Create(Player player, int CourtId)
+    { var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      player.User = currentUser;
       _db.Players.Add(player);
       _db.SaveChanges();
       if (CourtId != 0)
