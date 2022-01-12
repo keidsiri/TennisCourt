@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace TennisCourt.Models
 {
-  public class TennisCourtContext : DbContext
+  public class TennisCourtContext : IdentityDbContext<ApplicationUser>
   {
     public DbSet<Court> Courts { get; set; }
     public DbSet<Player> Players { get; set; }

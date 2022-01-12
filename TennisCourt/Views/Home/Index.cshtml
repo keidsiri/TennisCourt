@@ -22,9 +22,9 @@
   @await Html.PartialAsync("NavBar")  
   <div class="bg-transparent text-secondary px-4 py-5 text-center" id="home-index">
     <div class="py-5">
-      <h1 class="display-5 fw-bold text-white">Tennis Court</h1>
+      <h1 class="display-5 fw-bold text-black">Tennis Court</h1>
       <div class="col-lg-6 mx-auto">
-        <p class="fs-5 mb-4">Your resource for course and player lists!</p>
+        <p class="fs-5 mb-4">Your resource for court and player list!</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         </div>
       </div>
@@ -40,6 +40,12 @@
       <div class="main-link-img" id="courts-img"></div>
       <h2>See all courts</h2>
       <p><a class="btn btn-secondary" href="Courts">View details »</a></p>
+    </div>
+    <div class="col-sm-6">
+      <div class="main-link-img" id="courts-img"></div>
+      <h2>Create an account </h2>
+      <p><a class="btn btn-secondary" href="Account">View details »</a></p>
+      <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
     </div>
   </div>
   @await Html.PartialAsync("Footer")

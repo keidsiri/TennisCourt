@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TennisCourt.Models;
+//new code
+using Microsoft.AspNetCore.Identity;
 
 namespace TennisCourt
 {
@@ -27,13 +29,21 @@ namespace TennisCourt
       services.AddEntityFrameworkMySql()
         .AddDbContext<TennisCourtContext>(options => options //need to match
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
+        //new code
+      services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<TennisCourtContext>()
+                .AddDefaultTokenProviders();
     }
 
     public void Configure(IApplicationBuilder app)
     {
       app.UseDeveloperExceptionPage();
+      //new code
+      app.UseAuthentication();
       app.UseRouting();
-
+      
+      //new code
+      app.UseAuthorization();
       app.UseEndpoints(routes =>
       {
         routes.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
